@@ -17,13 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <iframe
-          width={0}
-          height={0}
-          src={`/shared-tokens`}
-          style={{ border: "none", position: "absolute" }}
-          aria-disabled
-        />
         <div>{children}</div>
       </body>
     </html>

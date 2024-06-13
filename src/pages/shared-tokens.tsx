@@ -27,9 +27,31 @@ const SharedTokens: React.FC<object> = () => {
     };
 
     fetchTokens();
+
+    window.addEventListener(
+      "message",
+      async (event) => {
+        if (
+          event.data === "requestAccess"
+          // && event.origin === "https://nellyman.com" // Optional check
+        ) {
+          try {
+            await document.requestStorageAccess();
+            console.info("[shared-tokens-embed] Storage access granted.");
+          } catch (error) {
+            console.info("[shared-tokens-embed] Storage access denied.");
+          }
+        }
+      },
+      false
+    );
+
+    return () => {
+      window.removeEventListener("message", () => {});
+    };
   });
 
-  return <div>Shared Tokens</div>;
+  return <div data-target="shared-tokens-embed" />;
 };
 
 export default SharedTokens;
